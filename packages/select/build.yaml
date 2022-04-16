@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      select:
+        enabled: true
+
+builders:
+  select:
+    import: "package:select/builder.dart"
+    builder_factories: ["generateSelect"]
+    build_extensions: { ".dart": [".select.dart"] }
+    auto_apply: dependents
+    build_to: source
+    
