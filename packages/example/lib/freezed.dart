@@ -9,8 +9,8 @@ part 'freezed.select.dart';
 @selectable
 class FreezedExample with _$FreezedExample {
   const factory FreezedExample({
-    required String value,
-    required String other,
+    required int value,
+    required int other,
     required int andMore,
     required Whole evenACustomType,
   }) = FreezedExampleOne;

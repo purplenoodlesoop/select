@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:analyzer/dart/element/visitor.dart';
 import 'package:meta/meta.dart';
-import 'package:select/src/model/field_information.dart';
 import 'package:select/src/generator/selector_generator.dart';
+import 'package:select/src/model/field_information.dart';
 
 extension on DartType {
   String stringified() => toString().replaceAll('*', '');

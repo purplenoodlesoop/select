@@ -19,8 +19,8 @@ class _$FreezedExampleTearOff {
   const _$FreezedExampleTearOff();
 
   FreezedExampleOne call(
-      {required String value,
-      required String other,
+      {required int value,
+      required int other,
       required int andMore,
       required Whole evenACustomType}) {
     return FreezedExampleOne(
@@ -37,8 +37,8 @@ const $FreezedExample = _$FreezedExampleTearOff();
 
 /// @nodoc
 mixin _$FreezedExample {
-  String get value => throw _privateConstructorUsedError;
-  String get other => throw _privateConstructorUsedError;
+  int get value => throw _privateConstructorUsedError;
+  int get other => throw _privateConstructorUsedError;
   int get andMore => throw _privateConstructorUsedError;
   Whole get evenACustomType => throw _privateConstructorUsedError;
 
@@ -52,7 +52,7 @@ abstract class $FreezedExampleCopyWith<$Res> {
   factory $FreezedExampleCopyWith(
           FreezedExample value, $Res Function(FreezedExample) then) =
       _$FreezedExampleCopyWithImpl<$Res>;
-  $Res call({String value, String other, int andMore, Whole evenACustomType});
+  $Res call({int value, int other, int andMore, Whole evenACustomType});
 }
 
 /// @nodoc
@@ -75,11 +75,11 @@ class _$FreezedExampleCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       other: other == freezed
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       andMore: andMore == freezed
           ? _value.andMore
           : andMore // ignore: cast_nullable_to_non_nullable
@@ -99,7 +99,7 @@ abstract class $FreezedExampleOneCopyWith<$Res>
           FreezedExampleOne value, $Res Function(FreezedExampleOne) then) =
       _$FreezedExampleOneCopyWithImpl<$Res>;
   @override
-  $Res call({String value, String other, int andMore, Whole evenACustomType});
+  $Res call({int value, int other, int andMore, Whole evenACustomType});
 }
 
 /// @nodoc
@@ -124,11 +124,11 @@ class _$FreezedExampleOneCopyWithImpl<$Res>
       value: value == freezed
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       other: other == freezed
           ? _value.other
           : other // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       andMore: andMore == freezed
           ? _value.andMore
           : andMore // ignore: cast_nullable_to_non_nullable
@@ -151,9 +151,9 @@ class _$FreezedExampleOne implements FreezedExampleOne {
       required this.evenACustomType});
 
   @override
-  final String value;
+  final int value;
   @override
-  final String other;
+  final int other;
   @override
   final int andMore;
   @override
@@ -192,15 +192,15 @@ class _$FreezedExampleOne implements FreezedExampleOne {
 
 abstract class FreezedExampleOne implements FreezedExample {
   const factory FreezedExampleOne(
-      {required String value,
-      required String other,
+      {required int value,
+      required int other,
       required int andMore,
       required Whole evenACustomType}) = _$FreezedExampleOne;
 
   @override
-  String get value;
+  int get value;
   @override
-  String get other;
+  int get other;
   @override
   int get andMore;
   @override

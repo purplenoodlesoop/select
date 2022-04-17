@@ -1,6 +1,6 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/model/field_information.dart';
 import 'package:select/src/logic/selector_code_assembler.dart';
+import 'package:select/src/model/field_information.dart';
 
 abstract class ISelectorCodeProducer {
   String produce(String className, Set<FieldInformation> fields);

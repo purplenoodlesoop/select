@@ -14,11 +14,12 @@ dependencies:
   source_gen: ^1.2.2
   code_builder: ^4.1.0
   meta: ^1.7.0
+  analyzer: ^4.0.0
   select_annotation:
     path:
       ../select_annotation
-#   path: ^1.8.0
+
 
 dev_dependencies:
-  lints: ^1.0.0
+  purple_lints: ^0.2.0
   test: ^1.16.0

@@ -11,8 +11,8 @@ part of 'freezed.dart';
 abstract class FreezedExample$ {
   FreezedExample$._();
 
-  static String value(FreezedExample model) => model.value;
-  static String other(FreezedExample model) => model.other;
+  static int value(FreezedExample model) => model.value;
+  static int other(FreezedExample model) => model.other;
   static int andMore(FreezedExample model) => model.andMore;
   static Whole evenACustomType(FreezedExample model) => model.evenACustomType;
   static $FreezedExampleCopyWith<FreezedExample> copyWith(
