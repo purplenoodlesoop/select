@@ -1,6 +1,6 @@
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/logic/selector_code_builder.dart';
+import 'package:select/src/logic/selector_code_assembler.dart';
 import 'package:select/src/logic/selector_code_producer.dart';
 import 'package:select/src/generator/selector_generator.dart';
 import 'package:source_gen/source_gen.dart';
@@ -13,17 +13,19 @@ const String _header = '''
 // ignore_for_file: type=lint
 ''';
 
-List<Generator> _generateSelectGenerators(BuilderOptions options) => [
-      SelectorGenerator(
-        producer: CodeBuilderCodeProducer(
-          dartEmitter: DartEmitter(useNullSafetySyntax: true),
-          assembler: const SelectorCodeBuilderAssembler(),
-        ),
-      ),
-    ];
-
-Builder generateSelect(BuilderOptions options) => PartBuilder(
-      _generateSelectGenerators(options),
+Builder _partBuilder({required List<Generator> generators}) => PartBuilder(
+      generators,
       _extension,
       header: _header,
+    );
+
+Builder generateSelect(BuilderOptions options) => _partBuilder(
+      generators: [
+        SelectorGenerator(
+          producer: CodeBuilderCodeProducer(
+            dartEmitter: DartEmitter(useNullSafetySyntax: true),
+            assembler: const SelectorCodeBuilderAssembler(),
+          ),
+        ),
+      ],
     );

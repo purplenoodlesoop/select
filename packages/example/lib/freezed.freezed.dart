@@ -23,6 +23,12 @@ class _$FreezedExampleTearOff {
       value: value,
     );
   }
+
+  FreezedExampleTwo two({required int other}) {
+    return FreezedExampleTwo(
+      other: other,
+    );
+  }
 }
 
 /// @nodoc
@@ -30,43 +36,43 @@ const $FreezedExample = _$FreezedExampleTearOff();
 
 /// @nodoc
 mixin _$FreezedExample {
-  String get value => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String value) one,
+    required TResult Function(int other) two,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? one,
+    TResult Function(int other)? two,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? one,
+    TResult Function(int other)? two,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FreezedExampleOne value) one,
+    required TResult Function(FreezedExampleTwo value) two,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $FreezedExampleCopyWith<FreezedExample> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -75,7 +81,6 @@ abstract class $FreezedExampleCopyWith<$Res> {
   factory $FreezedExampleCopyWith(
           FreezedExample value, $Res Function(FreezedExample) then) =
       _$FreezedExampleCopyWithImpl<$Res>;
-  $Res call({String value});
 }
 
 /// @nodoc
@@ -86,27 +91,13 @@ class _$FreezedExampleCopyWithImpl<$Res>
   final FreezedExample _value;
   // ignore: unused_field
   final $Res Function(FreezedExample) _then;
-
-  @override
-  $Res call({
-    Object? value = freezed,
-  }) {
-    return _then(_value.copyWith(
-      value: value == freezed
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class $FreezedExampleOneCopyWith<$Res>
-    implements $FreezedExampleCopyWith<$Res> {
+abstract class $FreezedExampleOneCopyWith<$Res> {
   factory $FreezedExampleOneCopyWith(
           FreezedExampleOne value, $Res Function(FreezedExampleOne) then) =
       _$FreezedExampleOneCopyWithImpl<$Res>;
-  @override
   $Res call({String value});
 }
 
@@ -136,7 +127,6 @@ class _$FreezedExampleOneCopyWithImpl<$Res>
 
 /// @nodoc
 
-@selectable
 class _$FreezedExampleOne implements FreezedExampleOne {
   const _$FreezedExampleOne({required this.value});
 
@@ -169,6 +159,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String value) one,
+    required TResult Function(int other) two,
   }) {
     return one(value);
   }
@@ -177,6 +168,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? one,
+    TResult Function(int other)? two,
   }) {
     return one?.call(value);
   }
@@ -185,6 +177,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? one,
+    TResult Function(int other)? two,
     required TResult orElse(),
   }) {
     if (one != null) {
@@ -197,6 +190,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FreezedExampleOne value) one,
+    required TResult Function(FreezedExampleTwo value) two,
   }) {
     return one(this);
   }
@@ -205,6 +199,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
   }) {
     return one?.call(this);
   }
@@ -213,6 +208,7 @@ class _$FreezedExampleOne implements FreezedExampleOne {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
     required TResult orElse(),
   }) {
     if (one != null) {
@@ -226,10 +222,142 @@ abstract class FreezedExampleOne implements FreezedExample {
   const factory FreezedExampleOne({required String value}) =
       _$FreezedExampleOne;
 
-  @override
   String get value;
-  @override
   @JsonKey(ignore: true)
   $FreezedExampleOneCopyWith<FreezedExampleOne> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FreezedExampleTwoCopyWith<$Res> {
+  factory $FreezedExampleTwoCopyWith(
+          FreezedExampleTwo value, $Res Function(FreezedExampleTwo) then) =
+      _$FreezedExampleTwoCopyWithImpl<$Res>;
+  $Res call({int other});
+}
+
+/// @nodoc
+class _$FreezedExampleTwoCopyWithImpl<$Res>
+    extends _$FreezedExampleCopyWithImpl<$Res>
+    implements $FreezedExampleTwoCopyWith<$Res> {
+  _$FreezedExampleTwoCopyWithImpl(
+      FreezedExampleTwo _value, $Res Function(FreezedExampleTwo) _then)
+      : super(_value, (v) => _then(v as FreezedExampleTwo));
+
+  @override
+  FreezedExampleTwo get _value => super._value as FreezedExampleTwo;
+
+  @override
+  $Res call({
+    Object? other = freezed,
+  }) {
+    return _then(FreezedExampleTwo(
+      other: other == freezed
+          ? _value.other
+          : other // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FreezedExampleTwo implements FreezedExampleTwo {
+  const _$FreezedExampleTwo({required this.other});
+
+  @override
+  final int other;
+
+  @override
+  String toString() {
+    return 'FreezedExample.two(other: $other)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FreezedExampleTwo &&
+            const DeepCollectionEquality().equals(other.other, this.other));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(other));
+
+  @JsonKey(ignore: true)
+  @override
+  $FreezedExampleTwoCopyWith<FreezedExampleTwo> get copyWith =>
+      _$FreezedExampleTwoCopyWithImpl<FreezedExampleTwo>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) one,
+    required TResult Function(int other) two,
+  }) {
+    return two(other);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String value)? one,
+    TResult Function(int other)? two,
+  }) {
+    return two?.call(other);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? one,
+    TResult Function(int other)? two,
+    required TResult orElse(),
+  }) {
+    if (two != null) {
+      return two(other);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FreezedExampleOne value) one,
+    required TResult Function(FreezedExampleTwo value) two,
+  }) {
+    return two(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
+  }) {
+    return two?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FreezedExampleOne value)? one,
+    TResult Function(FreezedExampleTwo value)? two,
+    required TResult orElse(),
+  }) {
+    if (two != null) {
+      return two(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FreezedExampleTwo implements FreezedExample {
+  const factory FreezedExampleTwo({required int other}) = _$FreezedExampleTwo;
+
+  int get other;
+  @JsonKey(ignore: true)
+  $FreezedExampleTwoCopyWith<FreezedExampleTwo> get copyWith =>
       throw _privateConstructorUsedError;
 }
