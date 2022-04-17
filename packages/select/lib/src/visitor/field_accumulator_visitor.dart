@@ -2,12 +2,13 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:select/src/model/field_information.dart';
 import 'package:select/src/generator/selector_generator.dart';
 
-extension on String {
-  String sterilize() => replaceAll('*', '').replaceAll('_\$', '');
+extension on DartType {
+  String stringified() => toString().replaceAll('*', '');
 }
 
 class FieldAccumulatorVisitor extends SimpleElementVisitor<void>
@@ -21,25 +22,32 @@ class FieldAccumulatorVisitor extends SimpleElementVisitor<void>
   @override
   Set<FieldInformation> get fields => UnmodifiableSetView(_fields);
 
-  @override
-  @mustCallSuper
-  void visitConstructorElement(ConstructorElement element) {
-    _className = element.type.returnType.toString().sterilize();
+  void _assignClassName(ConstructorElement element) {
+    _className = element.type.returnType.stringified();
+  }
+
+  void _assignMixinFields(ConstructorElement element) {
+    element.enclosingElement.mixins
+        .map((mixin) => mixin.element)
+        .expand((element) => element.fields)
+        .forEach(visitFieldElement);
   }
 
   @override
   @mustCallSuper
   void visitFieldElement(FieldElement element) {
-    final name = element.name;
-    final type = element.type.toString();
+    final fieldInformation = FieldInformation(
+      name: element.name,
+      type: element.type.stringified(),
+    );
 
-    if (!type.contains('\$') && name != 'hashCode') {
-      final fieldInformation = FieldInformation(
-        name: name,
-        type: type.sterilize(),
-      );
+    _fields.add(fieldInformation);
+  }
 
-      _fields.add(fieldInformation);
-    }
+  @override
+  @mustCallSuper
+  void visitConstructorElement(ConstructorElement element) {
+    _assignClassName(element);
+    _assignMixinFields(element);
   }
 }
