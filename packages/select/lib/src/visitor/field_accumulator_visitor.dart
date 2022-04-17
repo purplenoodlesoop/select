@@ -2,8 +2,9 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:select/src/field_information.dart';
-import 'package:select/src/selector_generator.dart';
+import 'package:meta/meta.dart';
+import 'package:select/src/model/field_information.dart';
+import 'package:select/src/generator/selector_generator.dart';
 
 extension on String {
   String sterilize() => replaceAll('*', '').replaceAll('_\$', '');
@@ -21,11 +22,13 @@ class FieldAccumulatorVisitor extends SimpleElementVisitor<void>
   Set<FieldInformation> get fields => UnmodifiableSetView(_fields);
 
   @override
+  @mustCallSuper
   void visitConstructorElement(ConstructorElement element) {
     _className = element.type.returnType.toString().sterilize();
   }
 
   @override
+  @mustCallSuper
   void visitFieldElement(FieldElement element) {
     final name = element.name;
     final type = element.type.toString();

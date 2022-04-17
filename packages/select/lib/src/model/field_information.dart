@@ -1,3 +1,6 @@
+import 'package:meta/meta.dart';
+
+@immutable
 class FieldInformation {
   final String name;
   final String type;

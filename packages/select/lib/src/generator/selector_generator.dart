@@ -1,7 +1,7 @@
 import 'package:build/build.dart';
-import 'package:select/src/field_accumulator_visitor.dart';
-import 'package:select/src/field_information.dart';
-import 'package:select/src/selector_code_producer.dart';
+import 'package:select/src/visitor/field_accumulator_visitor.dart';
+import 'package:select/src/model/field_information.dart';
+import 'package:select/src/logic/selector_code_producer.dart';
 import 'package:select_annotation/select_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 

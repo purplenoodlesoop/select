@@ -1,5 +1,6 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/field_information.dart';
+import 'package:meta/meta.dart' as meta;
+import 'package:select/src/model/field_information.dart';
 
 abstract class ISelectorCodeBuilder {
   abstract final Constructor privateConstructor;
@@ -15,6 +16,7 @@ abstract class ISelectorCodeBuilder {
 }
 
 class SelectorCodeBuilder implements ISelectorCodeBuilder {
+  @meta.literal
   const SelectorCodeBuilder();
 
   static final Constructor _privateConstructor = Constructor(

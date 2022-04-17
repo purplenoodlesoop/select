@@ -1,9 +1,11 @@
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/selector_code_builder.dart';
-import 'package:select/src/selector_code_producer.dart';
-import 'package:select/src/selector_generator.dart';
+import 'package:select/src/logic/selector_code_builder.dart';
+import 'package:select/src/logic/selector_code_producer.dart';
+import 'package:select/src/generator/selector_generator.dart';
 import 'package:source_gen/source_gen.dart';
+
+const String _extension = '.select.dart';
 
 const String _header = '''
 // coverage:ignore-file
@@ -11,15 +13,17 @@ const String _header = '''
 // ignore_for_file: type=lint
 ''';
 
-Builder generateSelect(BuilderOptions options) => PartBuilder(
-      [
-        SelectorGenerator(
-          producer: CodeBuilderCodeProducer(
-            dartEmitter: DartEmitter(useNullSafetySyntax: true),
-            builder: const SelectorCodeBuilder(),
-          ),
+List<Generator> _generateSelectGenerators(BuilderOptions options) => [
+      SelectorGenerator(
+        producer: CodeBuilderCodeProducer(
+          dartEmitter: DartEmitter(useNullSafetySyntax: true),
+          builder: const SelectorCodeBuilder(),
         ),
-      ],
-      '.select.dart',
+      ),
+    ];
+
+Builder generateSelect(BuilderOptions options) => PartBuilder(
+      _generateSelectGenerators(options),
+      _extension,
       header: _header,
     );
