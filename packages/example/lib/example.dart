@@ -17,9 +17,11 @@ class Part {
 }
 
 void main() {
-  final values = const [Whole(Part('foo')), Whole(Part('bar'))]
-      .map(Whole$.part)
-      .map(Part$.value);
+  const source = [Whole(Part('foo')), Whole(Part('bar'))];
 
-  print(values);
+  final bad = source.map((whole) => whole.part).map((part) => part.value);
+
+  final good = source.map(Whole$.part).map(Part$.value);
+
+  [bad, good];
 }

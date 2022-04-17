@@ -10,5 +10,6 @@ part of 'freezed.dart';
 
 abstract class FreezedExampleOne$ {
   FreezedExampleOne$._();
+
   static String value(FreezedExampleOne model) => model.value;
 }

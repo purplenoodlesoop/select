@@ -10,10 +10,12 @@ part of 'example.dart';
 
 abstract class Whole$ {
   Whole$._();
+
   static Part part(Whole model) => model.part;
 }
 
 abstract class Part$ {
   Part$._();
+
   static String value(Part model) => model.value;
 }

@@ -1,60 +1,30 @@
 import 'package:build/build.dart';
 import 'package:select/src/field_accumulator_visitor.dart';
+import 'package:select/src/field_information.dart';
+import 'package:select/src/selector_code_producer.dart';
 import 'package:select_annotation/select_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'package:analyzer/dart/element/element.dart';
 
+abstract class SelectableClassInformation {
+  abstract final String? className;
+  abstract final Set<FieldInformation> fields;
+}
+
 class SelectorGenerator extends GeneratorForAnnotation<Selectable> {
-  SelectableClassInformation _accumulateInformation(Element element) {
+  final ISelectorCodeProducer _producer;
+
+  SelectorGenerator({
+    required ISelectorCodeProducer producer,
+  }) : _producer = producer;
+
+  static SelectableClassInformation _accumulateInformation(Element element) {
     final visitor = FieldAccumulatorVisitor();
 
     element.visitChildren(visitor);
 
     return visitor;
-  }
-
-  void _writeDeclaration(StringBuffer buffer, String className) {
-    buffer
-      ..write('abstract class ')
-      ..write(className)
-      ..write('\$ ')
-      ..writeln('{ ')
-      ..write(className)
-      ..writeln('\$._();');
-  }
-
-  void _writeFields(
-    StringBuffer buffer,
-    Set<FieldInformation> fields,
-    String className,
-  ) {
-    for (final field in fields) {
-      buffer
-        ..write('static ')
-        ..write(field.type)
-        ..write(' ')
-        ..write(field.name)
-        ..write('(')
-        ..write(className)
-        ..write(' model) => model.')
-        ..write(field.name)
-        ..writeln(';');
-    }
-  }
-
-  void _closeClass(StringBuffer buffer) {
-    buffer.writeln('}');
-  }
-
-  void _writeSelector(
-    StringBuffer output,
-    Set<FieldInformation> fields,
-    String className,
-  ) {
-    _writeDeclaration(output, className);
-    _writeFields(output, fields, className);
-    _closeClass(output);
   }
 
   @override
@@ -64,14 +34,10 @@ class SelectorGenerator extends GeneratorForAnnotation<Selectable> {
     BuildStep buildStep,
   ) {
     final information = _accumulateInformation(element);
-
     final className = information.className;
-    if (className == null) throw StateError('No class name found');
 
-    final output = StringBuffer();
-
-    _writeSelector(output, information.fields, className);
-
-    return output.toString();
+    return className == null
+        ? throw StateError('No class name found')
+        : _producer.produce(className, information.fields);
   }
 }

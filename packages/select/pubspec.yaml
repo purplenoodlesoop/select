@@ -12,6 +12,7 @@ environment:
 dependencies:
   build: ^2.3.0
   source_gen: ^1.2.2
+  code_builder: ^4.1.0
   select_annotation:
     path:
       ../select_annotation

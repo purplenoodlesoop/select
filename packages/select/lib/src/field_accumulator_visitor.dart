@@ -2,35 +2,11 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:select/src/field_information.dart';
+import 'package:select/src/selector_generator.dart';
 
 extension on String {
   String sterilize() => replaceAll('*', '').replaceAll('_\$', '');
-}
-
-class FieldInformation {
-  final String name;
-  final String type;
-
-  const FieldInformation({
-    required this.name,
-    required this.type,
-  });
-
-  @override
-  String toString() => '$type $name';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is FieldInformation && name == other.name && type == other.type);
-
-  @override
-  int get hashCode => name.hashCode ^ type.hashCode;
-}
-
-abstract class SelectableClassInformation {
-  String? get className;
-  Set<FieldInformation> get fields;
 }
 
 class FieldAccumulatorVisitor extends SimpleElementVisitor<void>
