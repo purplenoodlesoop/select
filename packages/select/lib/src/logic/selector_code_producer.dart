@@ -8,24 +8,24 @@ abstract class ISelectorCodeProducer {
 
 class CodeBuilderCodeProducer implements ISelectorCodeProducer {
   final DartEmitter _dartEmitter;
-  final SelectorCodeBuilder _builder;
+  final ISelectorCodeBuilderAssembler _assembler;
 
   const CodeBuilderCodeProducer({
     required DartEmitter dartEmitter,
-    required SelectorCodeBuilder builder,
+    required ISelectorCodeBuilderAssembler assembler,
   })  : _dartEmitter = dartEmitter,
-        _builder = builder;
+        _assembler = assembler;
 
   @override
   String produce(String className, Set<FieldInformation> fields) {
     final classDefinition = Class(
       (c) => c
         ..abstract = true
-        ..name = _builder.generatedClassName(className)
-        ..constructors.add(_builder.privateConstructor)
+        ..name = _assembler.generatedClassName(className)
+        ..constructors.add(_assembler.privateConstructor)
         ..methods.addAll(
-          _builder.selectorMethods(
-            _builder.modelParameter(className),
+          _assembler.selectorMethods(
+            _assembler.modelParameter(className),
             fields,
           ),
         ),

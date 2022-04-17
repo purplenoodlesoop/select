@@ -17,7 +17,7 @@ List<Generator> _generateSelectGenerators(BuilderOptions options) => [
       SelectorGenerator(
         producer: CodeBuilderCodeProducer(
           dartEmitter: DartEmitter(useNullSafetySyntax: true),
-          builder: const SelectorCodeBuilder(),
+          assembler: const SelectorCodeBuilderAssembler(),
         ),
       ),
     ];

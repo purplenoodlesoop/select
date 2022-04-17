@@ -2,7 +2,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:meta/meta.dart' as meta;
 import 'package:select/src/model/field_information.dart';
 
-abstract class ISelectorCodeBuilder {
+abstract class ISelectorCodeBuilderAssembler {
   abstract final Constructor privateConstructor;
 
   String generatedClassName(String originalName);
@@ -15,9 +15,9 @@ abstract class ISelectorCodeBuilder {
   );
 }
 
-class SelectorCodeBuilder implements ISelectorCodeBuilder {
+class SelectorCodeBuilderAssembler implements ISelectorCodeBuilderAssembler {
   @meta.literal
-  const SelectorCodeBuilder();
+  const SelectorCodeBuilderAssembler();
 
   static final Constructor _privateConstructor = Constructor(
     (c) => c..name = '_',
