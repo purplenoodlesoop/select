@@ -11,14 +11,14 @@ environment:
 
 dependencies:
   freezed_annotation: ^1.1.0
-  select_annotation:
-    path:
-      ../select_annotation
-#   path: ^1.8.0
+ # select_annotation:
+  #  path:
+    #  ../select_annotation
 
 dev_dependencies:
   build_runner: ^2.1.10
   freezed: ^1.1.1
-  select:
-    path:
-      ../select
+  purple_lints: ^0.2.0
+  #select:
+   # path:
+    #  ../select
