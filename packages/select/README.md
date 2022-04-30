@@ -1,6 +1,6 @@
 # select
 
-Code generation for selectors of fields that helps reduce repeating code.
+Code generation for selectors of class fields that helps reduce repetitive code.
 
 ## Index
 - [Index](#index)

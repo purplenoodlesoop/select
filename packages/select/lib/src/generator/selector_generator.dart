@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:select/src/logic/selector_code_producer.dart';
 import 'package:select/src/model/field_information.dart';
 import 'package:select/src/visitor/field_accumulator_visitor.dart';
 import 'package:select_annotation/select_annotation.dart';
@@ -9,6 +8,10 @@ import 'package:source_gen/source_gen.dart';
 abstract class SelectableClassInformation {
   abstract final String? className;
   abstract final Set<FieldInformation> fields;
+}
+
+abstract class ISelectorCodeProducer {
+  String produce(String className, Set<FieldInformation> fields);
 }
 
 class SelectorGenerator extends GeneratorForAnnotation<Selectable> {

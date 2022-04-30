@@ -1,7 +1,7 @@
 publish_to: none
 
 name: select
-description: Code generation for selectors of fields that helps reduce repeating code.
+description: Code generation for selectors of class fields that helps reduce repetitive code.
 version: 0.1.0
 maintainer: Yakov Karpov (@purplenoodlesoop)
 
