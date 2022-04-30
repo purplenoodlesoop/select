@@ -20,7 +20,7 @@ Code generation for selectors of fields that helps reduce repeating code.
 
 ## About
 
-***select*** helps generate selector methods for any class that can be used anywhere where you would use a selector-lambda. Only one annotation is used, and only one annotation is needed – every class annotated with `@selectable` would has selectors for all fields and all fields of applied mixins.
+***select*** helps generate selector methods for any class that can be used anywhere where you would use a selector-lambda. Only one annotation is used, and only one annotation is needed – every class annotated with `@selectable` would have selectors for all fields and all fields of applied mixins.
 
 This package is compatible with the amazing [freezed](https://pub.dev/packages/freezed) code generator.
 
@@ -114,7 +114,7 @@ And that's it – those selectors can be used in any way, that a regular anonymo
 
 ### Examples
 
-Down bellow are listed most commonly used use-cases for selectors and their versions implemented with ***selectable***.
+Down below are listed the most commonly used use-cases for selectors and their versions implemented with ***selectable***.
 
 #### Iterable
 
