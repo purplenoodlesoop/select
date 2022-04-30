@@ -117,7 +117,29 @@ And that's it – those selectors can be used in any way, that a regular anonymo
 Down bellow are listed most commonly used use-cases for selectors and their versions implemented with ***selectable***.
 
 #### Iterable
+
+```dart
+[User('Bob', 28)].map(User$.name);
+```
 #### Stream
+
+```dart
+Stream.fromIterable([User('Jade', 33)]).map(User$.age);
+```
 #### Provider
+
+```dart
+Widget build(BuildContext context) {
+  final userName = context.select(User$.name);
+  
+  return ...;
+}
+```
 #### Selector builder
 
+```dart
+Widget build(BuildContext context) => BlocSelector<UserBloc, UserModel, int>(
+  selector: User$.age
+  builder: ...,
+);
+```
