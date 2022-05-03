@@ -45,44 +45,43 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
     return Code(buffer.toString());
   }
 
-  static Method _matcherMethod(
+  static Method Function(
     String enumName,
-    Set<String> info, {
+    Set<String> info,
+  ) _matcherMethod({
     required String name,
     required Reference parameterType,
     required String resolve,
   }) =>
-      Method(
-        (b) => b
-          ..types.add(_tRef)
-          ..returns = _tRef
-          ..name = name
-          ..optionalParameters.addAll(
-            _parameters(info, parameterType),
-          )
-          ..body = _body(enumName, info, resolve),
-      );
+      (enumName, info) => Method(
+            (b) => b
+              ..types.add(_tRef)
+              ..returns = _tRef
+              ..name = name
+              ..optionalParameters.addAll(
+                _parameters(info, parameterType),
+              )
+              ..body = _body(enumName, info, resolve),
+          );
 
   @override
   Extension spec(String className, Set<String> info) => Extension(
         (b) => b
           ..name = _extensionName(className)
           ..on = Reference(className)
-          ..methods.addAll([
-            _matcherMethod(
-              className,
-              info,
-              name: 'when',
-              parameterType: _tThunkRef,
-              resolve: '()',
-            ),
-            _matcherMethod(
-              className,
-              info,
-              name: 'whenConst',
-              parameterType: _tRef,
-              resolve: '',
-            ),
-          ]),
+          ..methods.addAll(
+            [
+              _matcherMethod(
+                name: 'when',
+                parameterType: _tThunkRef,
+                resolve: '()',
+              ),
+              _matcherMethod(
+                name: 'whenConst',
+                parameterType: _tRef,
+                resolve: '',
+              ),
+            ].map((method) => method(className, info)),
+          ),
       );
 }
