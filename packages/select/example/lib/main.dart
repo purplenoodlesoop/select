@@ -77,3 +77,10 @@ void main() {
 
   print(directions);
 }
+
+@matchable
+enum AppTheme {
+  light,
+  dark,
+  system,
+}

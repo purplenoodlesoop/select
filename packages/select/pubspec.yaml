@@ -1,3 +1,5 @@
+publish_to: none
+
 name: select
 description: Code generation for selectors of class fields that helps reduce repetitive code.
 version: 0.1.0
@@ -19,7 +21,9 @@ dependencies:
   code_builder: ^4.1.0
 
   meta: ^1.7.0
-  select_annotation: ^0.1.0
+  select_annotation: #^0.1.0
+    path:
+      ../select_annotation
 
 
 dev_dependencies:

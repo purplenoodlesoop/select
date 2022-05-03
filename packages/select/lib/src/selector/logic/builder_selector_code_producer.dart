@@ -1,27 +1,26 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/generator/selector_generator.dart';
-import 'package:select/src/model/field_information.dart';
+import 'package:select/src/core/generator/builder_code_producer.dart';
+import 'package:select/src/selector/model/field_information.dart';
 
-class BuilderSelectorCodeProducer implements ISelectorCodeProducer {
-  final DartEmitter _dartEmitter;
-
-  const BuilderSelectorCodeProducer({
+class BuilderSelectorCodeProducer
+    extends BuilderCodeProducer<Set<FieldInformation>> {
+  BuilderSelectorCodeProducer({
     required DartEmitter dartEmitter,
-  }) : _dartEmitter = dartEmitter;
+  }) : super(dartEmitter);
 
   static final Constructor _privateConstructor = Constructor(
     (c) => c..name = '_',
   );
 
-  String _generatedClassName(String originalName) => '$originalName\$';
+  static String _generatedClassName(String originalName) => '$originalName\$';
 
-  Parameter _modelParameter(String className) => Parameter(
+  static Parameter _modelParameter(String className) => Parameter(
         (p) => p
           ..type = Reference(className)
           ..name = 'model',
       );
 
-  Iterable<Method> _selectorMethods(
+  static Iterable<Method> _selectorMethods(
     Parameter modelParameter,
     Set<FieldInformation> fields,
   ) sync* {
@@ -40,7 +39,8 @@ class BuilderSelectorCodeProducer implements ISelectorCodeProducer {
     }
   }
 
-  Class _class(String className, Set<FieldInformation> fields) => Class(
+  @override
+  Class spec(String className, Set<FieldInformation> info) => Class(
         (c) => c
           ..abstract = true
           ..name = _generatedClassName(className)
@@ -48,15 +48,8 @@ class BuilderSelectorCodeProducer implements ISelectorCodeProducer {
           ..methods.addAll(
             _selectorMethods(
               _modelParameter(className),
-              fields,
+              info,
             ),
           ),
       );
-
-  @override
-  String produce(
-    String className,
-    Set<FieldInformation> fields,
-  ) =>
-      _class(className, fields).accept(_dartEmitter).toString();
 }
