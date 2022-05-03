@@ -56,4 +56,15 @@ extension $AppThemeMatcherExtension on AppTheme {
         return system();
     }
   }
+
+  T whenConst<T>({required T light, required T dark, required T system}) {
+    switch (this) {
+      case AppTheme.light:
+        return light;
+      case AppTheme.dark:
+        return dark;
+      case AppTheme.system:
+        return system;
+    }
+  }
 }

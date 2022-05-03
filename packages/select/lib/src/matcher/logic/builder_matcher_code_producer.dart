@@ -11,17 +11,21 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
 
   static String _extensionName(String name) => '\$${name}MatcherExtension';
 
-  static Iterable<Parameter> _parameters(Set<String> fields) => fields.map(
+  static Iterable<Parameter> _parameters(
+    Set<String> fields,
+    Reference type,
+  ) =>
+      fields.map(
         (field) => Parameter(
           (p) => p
-            ..type = _tThunkRef
+            ..type = type
             ..name = field
             ..named = true
             ..required = true,
         ),
       );
 
-  static Code _body(String enumName, Set<String> fields) {
+  static Code _body(String enumName, Set<String> fields, String resolve) {
     final buffer = StringBuffer()..writeln('switch (this) {');
 
     for (final field in fields) {
@@ -33,22 +37,30 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
         ..writeln(':')
         ..write('return ')
         ..write(field)
-        ..writeln('();');
+        ..write(resolve)
+        ..writeln(';');
     }
     buffer.write('}');
 
     return Code(buffer.toString());
   }
 
-  static Method _matcherMethod(String enumName, Set<String> info) => Method(
+  static Method _matcherMethod(
+    String enumName,
+    Set<String> info, {
+    required String name,
+    required Reference parameterType,
+    required String resolve,
+  }) =>
+      Method(
         (b) => b
           ..types.add(_tRef)
           ..returns = _tRef
-          ..name = 'when'
+          ..name = name
           ..optionalParameters.addAll(
-            _parameters(info),
+            _parameters(info, parameterType),
           )
-          ..body = _body(enumName, info),
+          ..body = _body(enumName, info, resolve),
       );
 
   @override
@@ -56,8 +68,21 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
         (b) => b
           ..name = _extensionName(className)
           ..on = Reference(className)
-          ..methods.add(
-            _matcherMethod(className, info),
-          ),
+          ..methods.addAll([
+            _matcherMethod(
+              className,
+              info,
+              name: 'when',
+              parameterType: _tThunkRef,
+              resolve: '()',
+            ),
+            _matcherMethod(
+              className,
+              info,
+              name: 'whenConst',
+              parameterType: _tRef,
+              resolve: '',
+            ),
+          ]),
       );
 }
