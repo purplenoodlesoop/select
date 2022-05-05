@@ -1,6 +1,6 @@
 name: select
-description: Code generation for selectors of class fields that helps reduce repetitive code.
-version: 0.1.0
+description: Code generation for selectors of class fields and enum cases that helps reduce repetitive code.
+version: 0.2.0
 maintainer: Yakov Karpov (@purplenoodlesoop)
 
 homepage: https://github.com/purplenoodlesoop/select/tree/master/packages/select
@@ -19,7 +19,7 @@ dependencies:
   code_builder: ^4.1.0
 
   meta: ^1.7.0
-  select_annotation: ^0.1.0
+  select_annotation: ^0.2.0
 
 
 dev_dependencies:

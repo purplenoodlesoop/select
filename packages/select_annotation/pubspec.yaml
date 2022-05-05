@@ -1,6 +1,6 @@
 name: select_annotation
-description: Annotations for the selectable code generator that are used in pair with it.
-version: 0.1.0
+description: Annotations for the select code generator that are used in pair with it.
+version: 0.2.0
 maintainer: Yakov Karpov (@purplenoodlesoop)
 
 homepage: https://github.com/purplenoodlesoop/select/tree/master/packages/select_annotation

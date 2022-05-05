@@ -37,3 +37,34 @@ abstract class User$ {
   static Address address(User model) => model.address;
   static $UserCopyWith<User> copyWith(User model) => model.copyWith;
 }
+
+// **************************************************************************
+// MatcherGenerator
+// **************************************************************************
+
+extension $AppThemeMatcherExtension on AppTheme {
+  T when<T>(
+      {required T Function() light,
+      required T Function() dark,
+      required T Function() system}) {
+    switch (this) {
+      case AppTheme.light:
+        return light();
+      case AppTheme.dark:
+        return dark();
+      case AppTheme.system:
+        return system();
+    }
+  }
+
+  T whenConst<T>({required T light, required T dark, required T system}) {
+    switch (this) {
+      case AppTheme.light:
+        return light;
+      case AppTheme.dark:
+        return dark;
+      case AppTheme.system:
+        return system;
+    }
+  }
+}

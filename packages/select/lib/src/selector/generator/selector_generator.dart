@@ -1,7 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:select/src/model/field_information.dart';
-import 'package:select/src/visitor/field_accumulator_visitor.dart';
+import 'package:select/src/core/error/enum_source_error.dart';
+import 'package:select/src/core/generator/code_producer.dart';
+import 'package:select/src/selector/model/field_information.dart';
+import 'package:select/src/selector/visitor/field_accumulator_visitor.dart';
 import 'package:select_annotation/select_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -10,15 +12,11 @@ abstract class SelectableClassInformation {
   abstract final Set<FieldInformation> fields;
 }
 
-abstract class ISelectorCodeProducer {
-  String produce(String className, Set<FieldInformation> fields);
-}
-
 class SelectorGenerator extends GeneratorForAnnotation<Selectable> {
-  final ISelectorCodeProducer _producer;
+  final CodeProducer<Set<FieldInformation>> _producer;
 
   SelectorGenerator({
-    required ISelectorCodeProducer producer,
+    required CodeProducer<Set<FieldInformation>> producer,
   }) : _producer = producer;
 
   static SelectableClassInformation _accumulateInformation(Element element) {
@@ -39,7 +37,11 @@ class SelectorGenerator extends GeneratorForAnnotation<Selectable> {
     final className = information.className;
 
     return className == null
-        ? throw StateError('No class name found')
+        ? throw GenerationSourceError(
+            annotation: 'selectable',
+            type: 'Class',
+            element: element,
+          )
         : _producer.produce(className, information.fields);
   }
 }
