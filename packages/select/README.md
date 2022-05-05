@@ -19,6 +19,8 @@ Code generation for selectors of class fields and enum cases that helps reduce r
         - [Stream](#stream)
         - [Provider](#provider)
         - [Selector builder](#selector-builder)
+        - [Icons](#icons)
+        - [Widget mappings](#widget-mappings)
 
 
 ## About
