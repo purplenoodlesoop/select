@@ -6,11 +6,14 @@ Code generation for selectors of class fields and enum cases that helps reduce r
 - [Index](#index)
 - [About](#about)
 - [Motivation](#motivation)
+  - [Classes](#classes)
+  - [Enums](#enums)
 - [Install](#install)
     - [Used packages](#used-packages)
     - [Pubspec](#pubspec)
 - [Usage](#usage)
     - [Selectable class](#selectable-class)
+    - [Matchable enum](#matchable-enum)
     - [Examples](#examples)
         - [Iterable](#iterable)
         - [Stream](#stream)
@@ -20,11 +23,15 @@ Code generation for selectors of class fields and enum cases that helps reduce r
 
 ## About
 
-***select*** helps generate selector methods for any class that can be used anywhere where you would use a selector-lambda. Only one annotation is used, and only one annotation is needed – every class annotated with `@selectable` would have selectors for all fields and all fields of applied mixins.
+***select*** helps generate selector methods for any class that can be used anywhere where you would use a selector-lambda and pattern-matching for Enums that can replace switch/case to be less wordy.
 
 This package is compatible with the amazing [freezed](https://pub.dev/packages/freezed) code generator.
 
 ## Motivation
+
+Writing less code without a meaning helps a developer to focus on writing actual code. ***selectable*** helps you focus on writing business logic instead of distracting on things that can be automatically derived.
+
+### Classes
 
 Selectors are widely used in Flutter and Dart. The most common places of usage are:
   - `Iterable` transformations and especially mappings
@@ -36,7 +43,35 @@ Selector functions tend to be very repetitive, in the example function `(state) 
 
 That's a great task for automation, and that's exactly what that package does. So instead of writing `(model) => model.field`, it is possible to write `Model$.field` with ***select***.
 
+### Enums
 
+Similarly, Enums suffer from the same issues of demanding to write some code that doesn't has any meaning at all. Consider the following example:
+
+```dart
+switch (theme) {
+  case AppTheme.light:
+    print('Light!');
+    break;
+  case AppTheme.dark:
+    print('Dark!');
+    break;
+  case AppTheme.system:
+    print('System!');
+    break;
+}
+```
+
+From 138 symbols, only a fraction actually contains any meaning. ***selectable*** allows to write code with the same meaning, but a lot more compact:
+
+```dart
+theme.when(
+  light: () => print('Light!'),
+  dark: () => print('Dark!'),
+  system: () => print('System!'),
+);
+```
+
+That's almost twice as little symbols with a lot more meaning.
 
 ## Install
 
@@ -62,9 +97,9 @@ dev_dependencies:
 ```
 ## Usage
 
-To generate selectors for a class, two following criteria should be met:
-  1) The class is marked with the `@selectable` annotation.
-  2) File with the class includes a generated code, `part model.select.dart;`.
+To generate selectors, two following criteria should be met:
+  1) The class is marked with the `@selectable` annotation or the enum is marked with the `@matchable` annotation.
+  2) File with the class/enum includes a generated code, `part model.select.dart;`.
 
 ### Selectable class
 
@@ -114,6 +149,49 @@ abstract class User$ {
 
 And that's it – those selectors can be used in any way, that a regular anonymous selector is used.
 
+### Matchable enum
+
+To generate matching extensions for a enum, besides including the generated code through `part` directive, it must be annotated with the `@matchable` annotation:
+
+```dart
+@matchable
+enum AppTheme {
+  light,
+  dark,
+  system,
+}
+```
+
+The following enum would generate an extension with two methods:
+
+```dart
+extension $AppThemeMatcherExtension on AppTheme {
+  T when<T>({required T Function() light, required T Function() dark, required T Function() system}) {
+    switch (this) {
+      case AppTheme.light:
+        return light();
+      case AppTheme.dark:
+        return dark();
+      case AppTheme.system:
+        return system();
+    }
+  }
+
+  T whenConst<T>({required T light, required T dark, required T system}) {
+    switch (this) {
+      case AppTheme.light:
+        return light;
+      case AppTheme.dark:
+        return dark;
+      case AppTheme.system:
+        return system;
+    }
+  }
+}
+```
+
+The first one strictly replaces the switch/case, by allowing to execute only the matched case, accepting only the description of the values or actions, while the second one acts more as a type hash table, creating everything in advance and, as the name suggests, should be used with constant values.
+
 ### Examples
 
 Down below are listed the most commonly used use-cases for selectors and their versions implemented with ***selectable***.
@@ -141,7 +219,29 @@ Widget build(BuildContext context) {
 
 ```dart
 Widget build(BuildContext context) => BlocSelector<UserBloc, UserModel, int>(
-  selector: User$.age
-  builder: ...,
+    selector: User$.age
+    builder: ...,
+  );
+```
+
+#### Icons
+
+```dart
+Icon(
+  theme.whenConst(
+    light: Icons.wb_sunny,
+    dark: Icons.brightness_3,
+    system: Icons.brightness_auto,
+  ),
 );
+```
+
+#### Widget mappings
+
+```dart
+Widget build(BuildContext context) => formStep.when(
+    name: () => NameForm(initial: name),
+    age: () => AgeForm(minimumAge: widget.minimumAge),
+    email: () => const EmailForm(),
+  );
 ```
