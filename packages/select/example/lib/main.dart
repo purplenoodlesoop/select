@@ -51,7 +51,7 @@ extension<A, B> on B Function(A) {
   C Function(A) d<C>(C Function(B c) selector) => (A a) => selector(this(a));
 }
 
-void main() {
+void selectableAnnotation() {
   const user = User(
     firstName: 'John',
     lastName: 'Doe',
@@ -83,4 +83,26 @@ enum AppTheme {
   light,
   dark,
   system,
+}
+
+void matchableAnnotation() {
+  const currentTheme = AppTheme.light;
+
+  final label = currentTheme.whenConst(
+    light: 'To light',
+    dark: 'To dark',
+    system: 'To system',
+  );
+  print(label);
+
+  currentTheme.when(
+    light: () => print('Theme is light!'),
+    dark: () => print('Theme is dark!'),
+    system: () => print('Theme is system!'),
+  );
+}
+
+void main() {
+  selectableAnnotation();
+  matchableAnnotation();
 }

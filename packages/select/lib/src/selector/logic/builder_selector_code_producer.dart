@@ -1,5 +1,5 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:select/src/core/generator/builder_code_producer.dart';
+import 'package:select/src/core/logic/builder_code_producer.dart';
 import 'package:select/src/selector/model/field_information.dart';
 
 class BuilderSelectorCodeProducer

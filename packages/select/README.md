@@ -1,6 +1,6 @@
 # select
 
-Code generation for selectors of class fields that helps reduce repetitive code.
+Code generation for selectors of class fields and enum cases that helps reduce repetitive code.
 
 ## Index
 - [Index](#index)
@@ -35,6 +35,8 @@ Selectors are widely used in Flutter and Dart. The most common places of usage a
 Selector functions tend to be very repetitive, in the example function `(state) => state.field`, word state is repeated two times, and there are four symbols and two spaces. Overall, from 22 symbols, only 11 have a meaning, that is – `state.field`.
 
 That's a great task for automation, and that's exactly what that package does. So instead of writing `(model) => model.field`, it is possible to write `Model$.field` with ***select***.
+
+
 
 ## Install
 

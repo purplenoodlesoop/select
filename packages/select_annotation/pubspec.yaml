@@ -1,5 +1,5 @@
 name: select_annotation
-description: Annotations for the selectable code generator that are used in pair with it.
+description: Annotations for the select code generator that are used in pair with it.
 version: 0.1.0
 maintainer: Yakov Karpov (@purplenoodlesoop)
 
