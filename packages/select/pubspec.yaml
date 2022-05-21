@@ -11,7 +11,7 @@ environment:
 
 
 dependencies:
-  analyzer: ^3.0.0
+  analyzer: ^4.1.0
 
   build: ^2.3.0
   source_gen: ^1.2.2
