@@ -38,6 +38,12 @@ abstract class User$ {
   static $UserCopyWith<User> copyWith(User model) => model.copyWith;
 }
 
+abstract class F$ {
+  F$._();
+
+  static int a(F model) => model.a;
+}
+
 // **************************************************************************
 // MatcherGenerator
 // **************************************************************************

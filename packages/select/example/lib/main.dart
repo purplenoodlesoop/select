@@ -37,7 +37,12 @@ class Address {
 }
 
 @selectable
+mixin F {
+  int get a;
+}
+
 @freezed
+@selectable
 class User with _$User implements Named {
   const factory User({
     required String firstName,
