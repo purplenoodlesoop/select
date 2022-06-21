@@ -1,29 +1,21 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:build/build.dart';
-import 'package:select/src/core/error/enum_source_error.dart';
+import 'package:select/src/core/generator/annotated_class_field_generator.dart';
 import 'package:select/src/core/generator/code_producer.dart';
-import 'package:select/src/matcher/logic/enum_field_parser.dart';
 import 'package:select_annotation/select_annotation.dart';
-import 'package:source_gen/source_gen.dart';
 
-class MatcherGenerator extends GeneratorForAnnotation<Matchable> {
-  final CodeProducer<Set<String>> _producer;
-
+class MatcherGenerator extends AnnotatedClassFieldGenerator<Matchable, String> {
   MatcherGenerator({
     required CodeProducer<Set<String>> producer,
-  }) : _producer = producer;
+  }) : super(producer: producer, allowedEntity: 'Enum');
 
   @override
-  String generateForAnnotatedElement(
-    Element element,
-    ConstantReader annotation,
-    BuildStep buildStep,
+  bool elementPredicate(ClassElement element) => element.isEnum;
+
+  @override
+  Iterable<String> extractFieldInfo(
+    ClassElement thisElement,
   ) =>
-      element is! ClassElement || !element.isEnum
-          ? throw GenerationSourceError(
-              annotation: 'matchable',
-              type: 'Enum',
-              element: element,
-            )
-          : _producer.produce(element.displayName, parseEnumFields(element));
+      thisElement.fields
+          .where((element) => element.isEnumConstant)
+          .map((element) => element.displayName);
 }
