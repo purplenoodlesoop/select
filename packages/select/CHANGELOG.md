@@ -1,3 +1,11 @@
+## [0.3.1] – 2022-06-21
+
+### Changed
+- Refactored Generators to reduce code duplication
+
+### Fixed
+- Selectable generator to work with mixins using new Dart
+
 ## [0.3.0] – 2022-05-21
 
 ### Changed
