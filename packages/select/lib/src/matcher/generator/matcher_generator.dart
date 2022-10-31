@@ -9,11 +9,11 @@ class MatcherGenerator extends AnnotatedClassFieldGenerator<Matchable, String> {
   }) : super(producer: producer, allowedEntity: 'Enum');
 
   @override
-  bool elementPredicate(ClassElement element) => element.isEnum;
+  bool elementPredicate(InterfaceElement element) => element is EnumElement;
 
   @override
   Iterable<String> extractFieldInfo(
-    ClassElement thisElement,
+    InterfaceElement thisElement,
   ) =>
       thisElement.fields
           .where((element) => element.isEnumConstant)

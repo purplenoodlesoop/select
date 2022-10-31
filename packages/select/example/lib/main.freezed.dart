@@ -27,38 +27,42 @@ mixin _$User {
 /// @nodoc
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res>;
+      _$UserCopyWithImpl<$Res, User>;
+  @useResult
   $Res call({String firstName, String lastName, Address address});
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
+class _$UserCopyWithImpl<$Res, $Val extends User>
+    implements $UserCopyWith<$Res> {
   _$UserCopyWithImpl(this._value, this._then);
 
-  final User _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? address = freezed,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? address = null,
   }) {
     return _then(_value.copyWith(
-      firstName: firstName == freezed
+      firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
+      lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
-    ));
+    ) as $Val);
   }
 }
 
@@ -67,34 +71,33 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
       __$$_UserCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String firstName, String lastName, Address address});
 }
 
 /// @nodoc
-class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
+class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     implements _$$_UserCopyWith<$Res> {
   __$$_UserCopyWithImpl(_$_User _value, $Res Function(_$_User) _then)
-      : super(_value, (v) => _then(v as _$_User));
+      : super(_value, _then);
 
-  @override
-  _$_User get _value => super._value as _$_User;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? address = freezed,
+    Object? firstName = null,
+    Object? lastName = null,
+    Object? address = null,
   }) {
     return _then(_$_User(
-      firstName: firstName == freezed
+      firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
+      lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
-      address: address == freezed
+      address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
@@ -125,20 +128,19 @@ class _$_User implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_User &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
-            const DeepCollectionEquality().equals(other.address, address));
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.address, address) || other.address == address));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
-      const DeepCollectionEquality().hash(address));
+  int get hashCode => Object.hash(runtimeType, firstName, lastName, address);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserCopyWith<_$_User> get copyWith =>
       __$$_UserCopyWithImpl<_$_User>(this, _$identity);
 }
@@ -150,11 +152,11 @@ abstract class _User implements User {
       required final Address address}) = _$_User;
 
   @override
-  String get firstName => throw _privateConstructorUsedError;
+  String get firstName;
   @override
-  String get lastName => throw _privateConstructorUsedError;
+  String get lastName;
   @override
-  Address get address => throw _privateConstructorUsedError;
+  Address get address;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

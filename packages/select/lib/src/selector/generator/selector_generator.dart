@@ -12,12 +12,12 @@ class SelectorGenerator
 
   @override
   Iterable<FieldInformation> extractFieldInfo(
-    ClassElement thisElement,
+    InterfaceElement thisElement,
   ) =>
       thisElement.fields
           .followedBy(
             thisElement.mixins.expand(
-              (element) => element.element.fields,
+              (element) => element.element2.fields,
             ),
           )
           .map(
