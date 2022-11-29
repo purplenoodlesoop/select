@@ -78,4 +78,34 @@ extension $AppThemeMatcherExtension on AppTheme {
         return system;
     }
   }
+
+  T? whenOrNull<T>({
+    T Function()? light,
+    T Function()? dark,
+    T Function()? system,
+  }) {
+    switch (this) {
+      case AppTheme.light:
+        return light?.call();
+      case AppTheme.dark:
+        return dark?.call();
+      case AppTheme.system:
+        return system?.call();
+    }
+  }
+
+  T? whenConstOrNull<T>({
+    T? light,
+    T? dark,
+    T? system,
+  }) {
+    switch (this) {
+      case AppTheme.light:
+        return light;
+      case AppTheme.dark:
+        return dark;
+      case AppTheme.system:
+        return system;
+    }
+  }
 }
