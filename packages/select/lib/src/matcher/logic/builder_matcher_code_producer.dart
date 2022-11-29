@@ -8,12 +8,15 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
 
   static const Reference _tRef = Reference('T');
   static const Reference _tThunkRef = Reference('T Function()');
+  static const Reference _tRefNullable = Reference('T?');
+  static const Reference _tThunkRefNullable = Reference('T Function()?');
 
   static String _extensionName(String name) => '\$${name}MatcherExtension';
 
   static Iterable<Parameter> _parameters(
     Set<String> fields,
     Reference type,
+    bool isRequired,
   ) =>
       fields.map(
         (field) => Parameter(
@@ -21,7 +24,7 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
             ..type = type
             ..name = field
             ..named = true
-            ..required = true,
+            ..required = isRequired,
         ),
       );
 
@@ -51,15 +54,16 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
   ) _matcherMethod({
     required String name,
     required Reference parameterType,
-    required String resolve,
+    String resolve = '',
+    required bool areParametersRequired,
   }) =>
       (enumName, info) => Method(
             (b) => b
               ..types.add(_tRef)
-              ..returns = _tRef
+              ..returns = areParametersRequired ? _tRef : _tRefNullable
               ..name = name
               ..optionalParameters.addAll(
-                _parameters(info, parameterType),
+                _parameters(info, parameterType, areParametersRequired),
               )
               ..body = _body(enumName, info, resolve),
           );
@@ -75,11 +79,23 @@ class BuilderMatcherCodeProducer extends BuilderCodeProducer<Set<String>> {
                 name: 'when',
                 parameterType: _tThunkRef,
                 resolve: '()',
+                areParametersRequired: true,
               ),
               _matcherMethod(
                 name: 'whenConst',
                 parameterType: _tRef,
-                resolve: '',
+                areParametersRequired: true,
+              ),
+              _matcherMethod(
+                name: 'whenOrNull',
+                parameterType: _tThunkRefNullable,
+                resolve: '?.call()',
+                areParametersRequired: false,
+              ),
+              _matcherMethod(
+                name: 'whenConstOrNull',
+                parameterType: _tRefNullable,
+                areParametersRequired: false,
               ),
             ].map((method) => method(className, info)),
           ),

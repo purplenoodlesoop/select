@@ -1,3 +1,10 @@
+## [0.4.0] – 2022-11-29
+### Added
+- `whenOrNull` and `whenConstOrNull` methods to `@matchable` annotation.
+
+### Changed
+- Bumped `analyzer` dependency to `^5.2.0`
+
 ## [0.3.1] – 2022-06-21
 
 ### Changed

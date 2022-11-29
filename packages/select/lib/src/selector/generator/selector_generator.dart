@@ -12,7 +12,7 @@ class SelectorGenerator
 
   @override
   Iterable<FieldInformation> extractFieldInfo(
-    ClassElement thisElement,
+    InterfaceElement thisElement,
   ) =>
       thisElement.fields
           .followedBy(
