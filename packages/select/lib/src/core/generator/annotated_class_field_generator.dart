@@ -15,9 +15,9 @@ abstract class AnnotatedClassFieldGenerator<A, T>
   })  : _producer = producer,
         _allowedEntity = allowedEntity;
 
-  Iterable<T> extractFieldInfo(ClassElement thisElement);
+  Iterable<T> extractFieldInfo(InterfaceElement thisElement);
 
-  bool elementPredicate(ClassElement element) => true;
+  bool elementPredicate(InterfaceElement element) => true;
 
   @override
   String generateForAnnotatedElement(
@@ -25,7 +25,7 @@ abstract class AnnotatedClassFieldGenerator<A, T>
     ConstantReader annotation,
     BuildStep buildStep,
   ) =>
-      element is! ClassElement || !elementPredicate(element)
+      element is! InterfaceElement || !elementPredicate(element)
           ? throw GenerationSourceError(
               annotation: T.toString().toLowerCase(),
               type: _allowedEntity,
