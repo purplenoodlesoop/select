@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_spread_collections
+
 import 'package:analyzer/dart/element/element.dart';
 import 'package:select/src/core/generator/annotated_class_field_generator.dart';
 import 'package:select/src/core/generator/code_producer.dart';
@@ -14,18 +16,17 @@ class SelectorGenerator
   Iterable<FieldInformation> extractFieldInfo(
     InterfaceElement thisElement,
   ) =>
-      thisElement.fields
-          .followedBy(
-            thisElement.mixins.expand(
-              (element) => element.element.fields,
-            ),
-          )
+      (<FieldElement>[]
+            ..addAll(thisElement.fields)
+            ..addAll(
+              thisElement.mixins.expand((element) => element.element.fields),
+            ))
           .map(
-            (field) => FieldInformation(
-              name: field.displayName,
-              type: field.type
-                  .getDisplayString(withNullability: true)
-                  .replaceAll('*', ''),
-            ),
-          );
+        (field) => FieldInformation(
+          name: field.displayName,
+          type: field.type
+              .getDisplayString(withNullability: true)
+              .replaceAll('*', ''),
+        ),
+      );
 }
