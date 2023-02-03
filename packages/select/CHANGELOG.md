@@ -1,3 +1,9 @@
+## [0.4.1] – 2023-02-04
+
+### Fixed
+- Documentation installation instructions
+- @selectable generator for mixins
+
 ## [0.4.0] – 2022-11-29
 ### Added
 - `whenOrNull` and `whenConstOrNull` methods to `@matchable` annotation.
