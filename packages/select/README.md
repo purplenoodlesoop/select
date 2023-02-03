@@ -91,11 +91,11 @@ And the `pubspec.yaml` should be extended as in following:
 
 ```yaml
 dependencies:
-  freezed_annotation: ^0.1.0
+  select_annotation: #latest version
 
 dev_dependencies:
   build_runner: #latest version
-  select: ^0.1.0
+  select: #latest version
 ```
 ## Usage
 
